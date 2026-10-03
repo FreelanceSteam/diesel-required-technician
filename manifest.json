@@ -1,7 +1,7 @@
 {
   "name": "Diesel Required",
   "short_name": "Diesel Tech",
-  "start_url": "./?v=2",
+  "start_url": "./?v=4",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0b3d91",
