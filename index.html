@@ -47,13 +47,28 @@ button {
 <script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZGnmIstiDKRoy2u19OwZMGXC0t_W6T8CnR1qO26FlbSEY3WhqDp8Sj3oU_aaWi-jGaA/exec";
 
+function setTechnicianTokenCookie(token) {
+  document.cookie =
+    "dieselTechnicianToken=" +
+    encodeURIComponent(token) +
+    "; path=/; max-age=31536000; SameSite=Lax; Secure";
+}
+
+function getTechnicianTokenCookie() {
+  const match = document.cookie.match(
+    /(?:^|;\s*)dieselTechnicianToken=([^;]+)/
+  );
+
+  return match ? decodeURIComponent(match[1]) : "";
+}
+
 function getToken() {
 
   const queryToken =
     new URLSearchParams(window.location.search).get("token");
 
   if (queryToken) {
-    localStorage.setItem("dieselTechnicianToken", queryToken);
+    setTechnicianTokenCookie(queryToken);
     return queryToken;
   }
 
@@ -66,14 +81,13 @@ function getToken() {
     const hashToken = params.get("token");
 
     if (hashToken) {
-      localStorage.setItem("dieselTechnicianToken", hashToken);
+      setTechnicianTokenCookie(hashToken);
       return hashToken;
     }
   }
 
-  return localStorage.getItem("dieselTechnicianToken") || "";
+  return getTechnicianTokenCookie() || "";
 }
-
 function openTechnician() {
   const token = getToken();
 
