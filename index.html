@@ -48,8 +48,14 @@ button {
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZGnmIstiDKRoy2u19OwZMGXC0t_W6T8CnR1qO26FlbSEY3WhqDp8Sj3oU_aaWi-jGaA/exec";
 
 function getToken() {
+  const queryToken =
+    new URLSearchParams(window.location.search).get("token");
+
+  if (queryToken) return queryToken;
+
   const hash = window.location.hash || "";
   if (!hash) return "";
+
   const params = new URLSearchParams(hash.substring(1));
   return params.get("token") || "";
 }
